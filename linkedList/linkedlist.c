@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include<stdlib.h>
-// #include<process.h>
 struct node
 {
     int data;
@@ -21,7 +20,6 @@ void insertAtBeg(struct node ** start, int item){
         temp -> next = *start;
         *start = temp;
     }
-    // *start = temp;
 
 }
 void insertAtEnd(struct node ** start, int item){
@@ -86,7 +84,6 @@ int search(struct node *start, int item){
     {
 
         if(temp -> data == item){
-            // printf("%d ", temp -> data);
             return 1;
         }
         temp = temp -> next;
@@ -143,7 +140,6 @@ int main()
                 break;
             
             case 2:
-                // int input;
                 printf("Enter element for insert in end\n");
                 scanf("%d", &input);
                 insertAtEnd(&head, input);
@@ -170,7 +166,6 @@ int main()
                 printf("Enter element what you insert at end\n");
                 scanf("%d", &input);
                 insertAfter(head, location ,input);
-                // linkedListTraverse(head); 
                 break;
             case 6:
                 delete_at_end(&head);
