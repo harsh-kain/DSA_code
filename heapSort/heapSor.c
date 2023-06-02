@@ -1,58 +1,77 @@
-#include<stdio.h>
-#define MAX 10
-void swap(int* a, int* b)
+#include <stdio.h>
+#define MAX 9
+
+void heapsort(int[]);
+void Bulid_Maxheap(int[]);
+void Max_heapify(int[], int);
+
+int heapsize = MAX - 1;
+void heapsort(int A[])
 {
- 
-    int temp = *a;
- 
-    *a = *b;
- 
-    *b = temp;
+    int i = MAX - 1, temp;
+    Bulid_Maxheap(A);
+    // printf("heap\n");
+    for (i; i > 1; i--)
+    {
+        temp = A[1];
+        A[1] = A[i];
+        A[i] = temp;
+        heapsize = heapsize - 1;
+        Max_heapify(A, 1);
+    }
 }
-void heapify(int arr[], int N, int i)
-{ 
-    int largest = i;
-    int left = 2 * i + 1;
-    int right = 2 * i + 2;
-    if (left < N && arr[left] > arr[largest]){
-        largest = left;
+void Bulid_Maxheap(int A[])
+{
+    int length = MAX - 1, i;
+
+    for (i = length / 2; i >= 1; i--)
+    {
+        printf("Bulid\n");
+        Max_heapify(A, i);
+    }
+}
+void Max_heapify(int A[], int i)
+{
+    int l, r, largest, temp1;
+    l = 2 * i;
+    r = (2 * i) + 1;
+
+    if (l <= heapsize && A[l] > A[i])
+    {
+        largest = l;
     }
 
-    if (right < N && arr[right] > arr[largest]){
-        largest = right;
+    else
+    {
+        largest = i;
     }
- 
-    if (largest != i) {
- 
-        swap(&arr[i], &arr[largest]);
-        heapify(arr, N, largest);
+
+    if (r <= heapsize)
+    {
+
+        if (A[r] > A[largest])
+        {
+            largest = r;
+        }
+    }
+    if (largest != i)
+    {
+        temp1 = A[i];
+        A[i] = A[largest];
+        A[largest] = temp1;
+
+        Max_heapify(A, largest);
     }
 }
-void heapSort(int arr[], int N)
+void main()
 {
-    for (int i = N / 2 - 1; i >= 0; i--){
-        heapify(arr, N, i);
+    int i;
+    int A[] = {0, 2, 5, 7, 1, 18, 27, 3, 43};
+
+    heapsort(A);
+    printf("After sorting array will be \n");
+    for (i = 1; i < MAX; i++)
+    {
+        printf("%d\t", A[i]);
     }
- 
-    for (int i = N - 1; i >= 0; i--) {
- 
-        swap(&arr[0], &arr[i]);
-        heapify(arr, i, 0);
-    }
-}
-void printArray(int arr[], int N)
-{
-    for (int i = 0; i < N; i++)
-        printf("%d ", arr[i]);
-    printf("\n");
-}
- 
-int main()
-{
-    int arr[] = { 12, 11, 13, 5, 6, 7 };
-    int N = sizeof(arr) / sizeof(arr[0]);
-    
-    heapSort(arr, N);
-    printf("Sorted array is\n");
-    printArray(arr, N);
 }
